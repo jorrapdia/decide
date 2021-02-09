@@ -15,6 +15,28 @@ from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 
+class VotingModelTestCase(BaseTestCase):
+    def setUp(self):
+        q = Question(desc="Description")
+        q.save()
+
+        opt1 = QuestionOption(question=q, option='option 1')
+        opt1.save()
+
+        opt2 = QuestionOption(question=q, option="option 2")
+        opt2.save()
+
+        self.v = Voting(name="Votacion", question=q)
+        self.v.save()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.v = None
+
+    def testExiste(self):
+        v = Voting.objects.get(name="Votacion")
+        self.assertEquals(v.question.options.all()[0].option, "option 1")
 
 class VotingTestCase(BaseTestCase):
 
@@ -46,6 +68,13 @@ class VotingTestCase(BaseTestCase):
         v.auths.add(a)
 
         return v
+
+    def test_update_voting_400(self):
+        v = self.create_voting()
+        data = {} #El campo action es requerido en la request
+        self.login()
+        response = self.client.put('/voting/{}/'.format(v.pk), data, format= 'json')
+        self.assertEquals(response.status_code, 400)
 
     def create_voters(self, v):
         for i in range(100):
@@ -106,6 +135,19 @@ class VotingTestCase(BaseTestCase):
         for q in v.postproc:
             self.assertEqual(tally.get(q["number"], 0), q["votes"])
 
+    def test_create_voting_from_api_checking_model(self):
+        self.login()
+        data = {
+            'name':'Example',
+            'desc':'Description',
+            'question': 'I wanna',
+            'question_opt':['cat','dog','baby']
+        }
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code,201)
+        voting = Voting.objects.get(name='Example')
+        self.assertEqual(voting.desc, 'Description')
+
     def test_create_voting_from_api(self):
         data = {'name': 'Example'}
         response = self.client.post('/voting/', data, format='json')
@@ -130,6 +172,12 @@ class VotingTestCase(BaseTestCase):
 
         response = self.client.post('/voting/', data, format='json')
         self.assertEqual(response.status_code, 201)
+
+    def test_toString(self):
+        v= self.create_voting()
+        self.assertEquals(str(v), 'test voting')
+        self.assertEquals(str(v.question), "test question")
+        self.assertEquals(str(v.question.options.all()[0]), "option 1 (2)")
 
     def test_update_voting(self):
         voting = self.create_voting()
