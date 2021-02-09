@@ -36,7 +36,7 @@ DATABASES = {
         'NAME': 'decide',
         'USER': 'decide',
         'PASSWORD': 'decide',
-        'HOST': 'localhost',
+        'HOST': 'https://decidejorrapdia.herokuapp.com/',
         'PORT': '5432',
     }
 }
