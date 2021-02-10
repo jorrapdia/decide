@@ -13,7 +13,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'localhost'
+BASEURL = 'http://localhost:8000'
 
 APIS = {
     'authentication': BASEURL,
@@ -33,7 +33,7 @@ DATABASES = {
         'NAME': 'decide',
         'USER': 'decide',
         'PASSWORD': 'decide',
-        'HOST': BASEURL,
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
