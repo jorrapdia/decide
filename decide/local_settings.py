@@ -13,7 +13,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'http://localhost:8000'
+BASEURL = 'https://decidejorrapdia.herokuapp.com/'
 
 APIS = {
     'authentication': BASEURL,
@@ -33,7 +33,7 @@ DATABASES = {
         'NAME': 'decide',
         'USER': 'decide',
         'PASSWORD': 'decide',
-        'HOST': 'localhost',
+        'HOST': 'https://decidejorrapdia.herokuapp.com/',
         'PORT': '5432',
     }
 }
