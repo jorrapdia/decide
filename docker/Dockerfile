@@ -12,6 +12,11 @@ WORKDIR /app
 
 RUN git clone https://github.com/jorrapdia/decide.git .
 RUN pip install -r requirements.txt
+RUN mkdir static
+
+WORKDIR /app/static/
+
+RUN mkdir media
 
 WORKDIR /app/decide
 
