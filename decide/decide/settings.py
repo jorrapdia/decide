@@ -71,7 +71,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'https://decidejorrapdia.herokuapp.com/'
+BASEURL = 'https://localhost:8000/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,7 +113,7 @@ DATABASES = {
         'NAME': 'decide',
         'USER': 'decide',
         'PASSWORD': 'decide',
-        'HOST': 'https://decidejorrapdia.herokuapp.com/',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
