@@ -11,8 +11,10 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/app/static/'
-MEDIA_ROOT = '/app/static/media/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media/')
+
 ALLOWED_HOSTS = ['*']
 
 # Modules in use, commented modules that you won't use
