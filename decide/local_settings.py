@@ -13,7 +13,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'https://decidejorrapdia.herokuapp.com/'
+BASEURL = 'localhost'
 
 APIS = {
     'authentication': BASEURL,
@@ -27,16 +27,13 @@ APIS = {
     'voting': BASEURL,
 }
 
-import django_heroku
-django_heroku.settings(locals())
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'decide',
         'USER': 'decide',
         'PASSWORD': 'decide',
-        'HOST': 'https://decidejorrapdia.herokuapp.com/',
+        'HOST': BASEURL,
         'PORT': '5432',
     }
 }
